@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/22899723/how-to-close-a-python-figure-by-keyboard-input exit/close code for plotting.

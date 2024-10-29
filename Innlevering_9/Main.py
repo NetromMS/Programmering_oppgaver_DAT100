@@ -2,9 +2,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from Maalinger_aar import MaalingerAar  # Importer klassen
 
+
+def on_double_click(event):
+    if event.dblclick and event.button == 3:  # 3 represents right mouse button
+        plt.close()
+
 if __name__ == "__main__":
     # Sti til CSV-filen
-    file_path = "stien/til/din/mappe/solflekkaktivitet_daglig.csv"
+    file_path = "/Users/netrom/Library/CloudStorage/OneDrive-UniversitetetiStavanger/Programmering/Programmering_oppgaver_DAT100/Innlevering_9/FIler/solflekkaktivitet_daglig.csv"
     
     # Les CSV-filen, spesifiser separator, og kolonner
     data = pd.read_csv(file_path, sep=";", header=None, usecols=[0, 4], encoding='utf-8')
@@ -57,6 +62,11 @@ if __name__ == "__main__":
     plt.grid(True)
     plt.xticks(rotation=45)
 
+    # Legg til event listener for dobbelt høyreklikk
+    fig = plt.gcf()
+    fig.canvas.mpl_connect('button_press_event', on_double_click)
+
     # Vis plot
     plt.tight_layout()
     plt.show()
+    plt.exit
