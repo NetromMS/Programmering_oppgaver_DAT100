@@ -28,7 +28,35 @@ if __name__ == "__main__":
         # Legg til dagens måling i MaalingerAar-objektet for dette året
         yearly_data[year].add_measurement(sunspots)
     
-    # Print ut statistikk for hvert år
-    for year, maaling in yearly_data.items():
-        avg_sunspots = maaling.calculate_average()
-        print(f"År: {year}, Maks: {maaling.max_daily}, Min: {maaling.min_daily}, Gjennomsnitt: {avg_sunspots}")
+    # Listene for plotting
+    years = []
+    min_sunspots = []
+    avg_sunspots = []
+    max_sunspots = []
+
+    # Gå gjennom dictionaryet og hent ut data for hvert år
+    for year, maaling in sorted(yearly_data.items()):
+        years.append(year)
+        min_sunspots.append(maaling.min_daily)
+        avg_sunspots.append(maaling.calculate_average())
+        max_sunspots.append(maaling.max_daily)
+
+    # Plotting
+    plt.figure(figsize=(10, 6))
+
+    # Plot for minimum, gjennomsnitt og maksimum antall solflekker per år
+    plt.plot(years, min_sunspots, label='Minimum antall solflekker', color='blue')
+    plt.plot(years, avg_sunspots, label='Gjennomsnittlig antall solflekker', color='green')
+    plt.plot(years, max_sunspots, label='Maksimum antall solflekker', color='red')
+
+    # Tilpass plottet
+    plt.xlabel('År')
+    plt.ylabel('Antall solflekker')
+    plt.title('Solflekkaktivitet per år')
+    plt.legend()
+    plt.grid(True)
+    plt.xticks(rotation=45)
+
+    # Vis plot
+    plt.tight_layout()
+    plt.show()
