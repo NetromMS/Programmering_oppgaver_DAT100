@@ -1,0 +1,44 @@
+Hovedfunksjonalitet
+
+Dette programmet analyserer daglige solflekkmålinger fra en CSV-fil og genererer en årlig oversikt over minimum, gjennomsnittlig og maksimum antall solflekker. Resultatene blir deretter visualisert i et linjediagram, hvor man kan se variasjonen i solflekkaktivitet per år. Programmet inkluderer også en funksjon som gjør at man kan lukke plottet ved å dobbeltklikke med høyre museknapp.
+
+Detaljert gjennomgang
+
+1. MaalingerAar-klassen (maalinger_aar.py)
+
+	•	Klassen representerer data for solflekker for ett spesifikt år.
+	•	Egenskaper:
+	•	år: Året for målingene.
+	•	total_solflekker: Totalt antall solflekker for alle målingene det året.
+	•	antall_målinger: Antall dager med registrerte solflekker.
+	•	maks_daglig: Høyeste antall solflekker på en enkelt dag.
+	•	min_daglig: Laveste antall solflekker på en enkelt dag.
+	•	Metoder:
+	•	__init__: Konstruktør som initialiserer et objekt for et gitt år med tomme data.
+	•	add_measurement(sunspots): Legger til en ny daglig måling ved å oppdatere totalt antall solflekker, antall målinger, samt sjekker om målingen oppdaterer maks- eller min-dagligverdien.
+	•	calculate_average(): Returnerer gjennomsnittlig antall solflekker per dag for det året.
+
+2. Hovedprogrammet (hovedprogram.py)
+
+	•	Hovedprogrammet leser inn data, organiserer og analyserer dem, og til slutt visualiserer resultatene.
+	•	Hovedsteg:
+	•	Lesing og Filtrering av Data:
+	•	CSV-filen leses inn med Pandas, hvor kun kolonnene år og antall solflekker hentes.
+	•	Rader der antall solflekker er -1 (manglende data) filtreres ut.
+	•	Dataorganisering:
+	•	For hvert unike år i dataene, opprettes et MaalingerAar-objekt i et dictionary (yearly_data).
+	•	Daglige målinger legges til ved å kalle add_measurement, slik at total, antall målinger, maks og min solflekker per år akkumuleres.
+	•	Plotting:
+	•	Henter minimum, gjennomsnittlig og maksimum antall solflekker per år fra hvert MaalingerAar-objekt i dictionaryet og lagrer dem i lister.
+	•	Plotter tre linjer (minimum, gjennomsnitt og maksimum antall solflekker) mot år.
+	•	Diagrammet kan lukkes med et dobbelt høyreklikk ved hjelp av en on_double_click-funksjon.
+
+Oppsummering
+
+Dette programmet strukturerer og visualiserer årlig solflekkaktivitet ved å:
+
+	1.	Beregne minimum, gjennomsnitt og maksimum solflekkaktivitet per år,
+	2.	Plotte resultatene, og
+	3.	Gi en interaktiv måte å lukke plottet på.
+
+Dette gjør det enkelt å analysere langsiktige trender i solflekkaktivitet over flere år.
